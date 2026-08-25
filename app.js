@@ -1,4 +1,4 @@
-const WA="5491124039191";
+const WA="5491178193961";
 const MP="https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1413458706-82e09e02-bbea-4ea6-b7ec-237d480df8d6";
 const CRM="https://crm-supabase-six.vercel.app/api/lead-intake";
 const PROVINCES=["Buenos Aires","CABA","Córdoba","Santa Fe","Mendoza","Tucumán","Entre Ríos","Salta","Chaco","Corrientes","Misiones","Santiago del Estero","San Juan","Jujuy","Río Negro","Neuquén","Formosa","Chubut","San Luis","Catamarca","La Rioja","La Pampa","Santa Cruz","Tierra del Fuego"];

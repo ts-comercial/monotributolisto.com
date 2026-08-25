@@ -28,7 +28,7 @@ robots.txt sitemap.xml
 |---|---|
 | `CRM` | `https://crm-supabase-six.vercel.app/api/lead-intake` |
 | `MP`  | Checkout de Mercado Pago (`pref_id`) |
-| `WA`  | WhatsApp `5491124039191` |
+| `WA`  | WhatsApp `5491178193961` |
 
 En `localhost` y en `file://` el formulario corre en modo demo y **no** envía leads.
 
