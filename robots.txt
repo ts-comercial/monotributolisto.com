@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /pago-aprobado.html
+Disallow: /pago-pendiente.html
+Disallow: /pago-rechazado.html
+
+Sitemap: https://monotributolisto.com/sitemap.xml
