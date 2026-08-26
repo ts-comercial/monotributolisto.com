@@ -28,6 +28,7 @@ const PIXEL_META    = '';   // ej: '1234567890123456'
 const ADS_ID        = '';   // ej: 'AW-XXXXXXXXX'
 const CONV_PAGO     = '';   // ej: 'AW-XXXXXXXXX/xxxxxxxxxxxxxxxxx'
 const CONV_WHATSAPP = '';   // ej: 'AW-XXXXXXXXX/xxxxxxxxxxxxxxxxx'
+const CLARITY_ID    = 'y8ipbja2zc';   // grabaciones de sesion y mapas de calor
 
 const TRACK = ['gclid','gbraid','wbraid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
 
@@ -131,3 +132,12 @@ document.addEventListener('click', e => {
 });
 
 capturarTracking();
+
+/* ─── Microsoft Clarity ─── */
+if (!esPrueba() && CLARITY_ID) {
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", CLARITY_ID);
+}
