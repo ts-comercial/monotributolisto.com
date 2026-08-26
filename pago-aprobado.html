@@ -10,4 +10,27 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/images/isotipo.png" type="image/png" sizes="512x512">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-</head><body><main class="payment-page payment-aprobado"><header class="payment-nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Monotributo Listo" class="brand-logo"></a><span>Gestión tributaria privada</span></header><section class="payment-shell"><div class="payment-card"><div class="payment-mark">✓</div><span class="payment-eyebrow">Pago confirmado</span><h1>¡Listo! Recibimos tu pago.</h1><p>Tu solicitud de alta de Monotributo quedó confirmada. Ahora necesitamos validar la documentación para iniciar la gestión.</p><div class="payment-summary"><div><small>Servicio</small><strong>Gestión de alta de Monotributo</strong></div><div><small>Estado</small><strong>Pago confirmado</strong></div></div><div class="payment-note">Un asesor continuará con vos por WhatsApp.</div><div class="payment-actions"><a class="primary whatsapp-button" href="https://wa.me/5491178193961?text=Hola%2C%20ya%20realic%C3%A9%20el%20pago%20de%20mi%20alta%20de%20Monotributo.%20%C2%BFC%C3%B3mo%20seguimos%3F">Continuar por WhatsApp <span>↗</span></a></div><div class="payment-next"><b>¿Qué sigue ahora?</b><ol><li>Nos enviás la documentación por WhatsApp.</li><li>El contador matriculado revisa tu situación y categoría.</li><li>Gestionamos el alta y te enviamos la constancia de inscripción que emite ARCA.</li></ol></div></div><aside class="payment-aside"><span>Tu solicitud está protegida</span><h2>De acá en adelante, te acompaña una persona.</h2><p>No quedás solo después del pago. Un contador matriculado revisa tu caso y sigue la gestión hasta que puedas facturar.</p><div><b>Soporte real</b><small>Por WhatsApp</small></div><div><b>Gestión privada</b><small>Independiente de ARCA</small></div></aside></section><footer class="payment-footer">Monotributo Listo es un servicio privado de asistencia tributaria. No representa ni está afiliado a ARCA.</footer></main></body></html>
+  <script src="config.js?v=1"></script>
+</head><body><main class="payment-page payment-aprobado"><header class="payment-nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="Monotributo Listo" class="brand-logo"></a><span>Gestión tributaria privada</span></header><section class="payment-shell"><div class="payment-card"><div class="payment-mark">✓</div><span class="payment-eyebrow">Pago confirmado</span><h1>¡Listo! Recibimos tu pago.</h1><p>Tu solicitud de alta de Monotributo quedó confirmada. Ahora necesitamos validar la documentación para iniciar la gestión.</p><div class="payment-summary"><div><small>Servicio</small><strong>Gestión de alta de Monotributo</strong></div><div><small>Estado</small><strong>Pago confirmado</strong></div></div><div class="payment-note">Un asesor continuará con vos por WhatsApp.</div><div class="payment-actions"><a id="wa-pospago" class="primary whatsapp-button" href="https://wa.me/5491178193961?text=Hola%2C%20ya%20realic%C3%A9%20el%20pago%20de%20mi%20alta%20de%20Monotributo.%20%C2%BFC%C3%B3mo%20seguimos%3F">Continuar por WhatsApp <span>↗</span></a></div><div class="payment-next"><b>¿Qué sigue ahora?</b><ol><li>Nos enviás la documentación por WhatsApp.</li><li>El contador matriculado revisa tu situación y categoría.</li><li>Gestionamos el alta y te enviamos la constancia de inscripción que emite ARCA.</li></ol></div></div><aside class="payment-aside"><span>Tu solicitud está protegida</span><h2>De acá en adelante, te acompaña una persona.</h2><p>No quedás solo después del pago. Un contador matriculado revisa tu caso y sigue la gestión hasta que puedas facturar.</p><div><b>Soporte real</b><small>Por WhatsApp</small></div><div><b>Gestión privada</b><small>Independiente de ARCA</small></div></aside></section><footer class="payment-footer">Monotributo Listo es un servicio privado de asistencia tributaria. No representa ni está afiliado a ARCA.</footer></main><script>
+  (function () {
+    try {
+      if (!localStorage.getItem('ts_conv_pago')) {
+        trackAds(CONV_PAGO, { value: PRECIO, currency: 'ARS' });
+        localStorage.setItem('ts_conv_pago', new Date().toISOString());
+      }
+      if (!localStorage.getItem('ts_meta_purchase')) {
+        trackMeta('Purchase', { value: PRECIO, currency: 'ARS', content_name: 'Gestión Alta Monotributo' }, true);
+        localStorage.setItem('ts_meta_purchase', new Date().toISOString());
+      }
+      if (!localStorage.getItem('ts_crm_pagado')) {
+        const identidad = JSON.parse(localStorage.getItem('ts_lead_pago') || '{}');
+        if (identidad.telefono) {
+          crmSave({ ...identidad, estado: 'pagado' });
+          localStorage.setItem('ts_crm_pagado', new Date().toISOString());
+        }
+      }
+      localStorage.removeItem('ts_completado');
+    } catch (e) {}
+  })();
+</script>
+</body></html>
