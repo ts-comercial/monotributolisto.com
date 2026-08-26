@@ -29,6 +29,9 @@
           localStorage.setItem('ts_crm_pagado', new Date().toISOString());
         }
       }
+      /* Esta pantalla es una carga de página nueva (volvió de Mercado Pago),
+         no un paso del wizard — no pasa por save(), así que se marca acá. */
+      trackClarity('pagado');
       localStorage.removeItem('ts_completado');
     } catch (e) {}
   })();

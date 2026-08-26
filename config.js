@@ -118,17 +118,27 @@ function trackAds(sendTo, params){
   gtag('event', 'conversion', { send_to: sendTo, ...(params || {}) });
 }
 
+/* Marca de sesión en Microsoft Clarity, para poder filtrar y saltar
+   directo a las grabaciones de cada tramo del embudo (ej: "mostrame las
+   sesiones donde se marcó no_apto"). Usa el mismo vocabulario que el CRM
+   (los 'estado' de app.js y api/lead-intake.js) — misma taxonomía en los
+   dos lados, sin inventar nombres nuevos. Clarity solo acepta un string por
+   evento, sin parámetros. */
+function trackClarity(evento){
+  if (esPrueba() || !CLARITY_ID || typeof clarity !== 'function') return;
+  clarity('event', evento);
+}
+
 /* Clic a WhatsApp = conversión secundaria (solo observación). Se excluye el
    botón post-pago: ese hito ya lo mide Purchase y contarlo dos veces
    distorsiona el costo por conversión. */
 document.addEventListener('click', e => {
   const wa = e.target.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"]');
   if (!wa || wa.id === 'wa-pospago') return;
+  const contexto = wa.classList.contains('wa') ? 'burbuja_ayuda' : 'formulario';
   trackAds(CONV_WHATSAPP);
-  trackMeta('MonotributoListo_Soporte_WhatsApp', {
-    contexto: wa.classList.contains('wa') ? 'burbuja_ayuda' : 'formulario',
-    variante: VARIANTE,
-  });
+  trackMeta('MonotributoListo_Soporte_WhatsApp', { contexto, variante: VARIANTE });
+  trackClarity('soporte_whatsapp_' + contexto);
 });
 
 capturarTracking();

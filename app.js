@@ -10,7 +10,7 @@ let stage="contact", warnedEmail="", lead={nombre:"",apellido:"",telefono:"",ema
 const funnel=document.getElementById("funnel"), esc=s=>String(s??"").replace(/[&<>\"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'\"':"&quot;"}[c]));
 /* Cada "Siguiente" guarda el avance: si la persona abandona a mitad de camino,
    igual queda en el CRM lo que completó hasta ahí. */
-function save(estado,extra={}){crmSave({...lead,...extra,estado})}
+function save(estado,extra={}){crmSave({...lead,...extra,estado});trackClarity(estado)}
 function validCuit(v){const c=v.replace(/\D/g,"");if(!/^\d{11}$/.test(c))return false;const m=[5,4,3,2,7,6,5,4,3,2];let sum=0;for(let i=0;i<10;i++)sum+=+c[i]*m[i];let d=11-sum%11;if(d===11)d=0;return d!==10&&d===+c[10]}
 function distance(a,b){const m=Array.from({length:b.length+1},()=>Array(a.length+1).fill(0));for(let i=0;i<=b.length;i++)m[i][0]=i;for(let j=0;j<=a.length;j++)m[0][j]=j;for(let i=1;i<=b.length;i++)for(let j=1;j<=a.length;j++)m[i][j]=b[i-1]===a[j-1]?m[i-1][j-1]:Math.min(m[i-1][j-1],m[i][j-1],m[i-1][j])+1;return m[b.length][a.length]}
 function suggestEmail(email){const p=email.split("@");if(p.length!==2)return null;const ds=["gmail.com","hotmail.com","outlook.com","yahoo.com","yahoo.com.ar","icloud.com","live.com","hotmail.com.ar","outlook.com.ar"];if(ds.includes(p[1].toLowerCase()))return null;const d=ds.find(x=>distance(p[1].toLowerCase(),x)<=2);return d?`${p[0]}@${d}`:null}
