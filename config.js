@@ -27,7 +27,7 @@ const MP_FALLBACK = 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id
    altamonotributo.com para poder comparar el rendimiento de las dos webs).
    Mientras estén vacíos no se dispara nada: el sitio funciona igual. ─── */
 const PIXEL_META    = '';   // ej: '1234567890123456'
-const ADS_ID        = '';   // ej: 'AW-XXXXXXXXX'
+const ADS_ID        = 'AW-18413597417';
 const CONV_PAGO     = '';   // ej: 'AW-XXXXXXXXX/xxxxxxxxxxxxxxxxx'
 const CONV_WHATSAPP = '';   // ej: 'AW-XXXXXXXXX/xxxxxxxxxxxxxxxxx'
 const CLARITY_ID    = 'y8ipbja2zc';   // grabaciones de sesion y mapas de calor
