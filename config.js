@@ -12,14 +12,16 @@ const ORIGEN  = 'monotributolisto.com';
 const VARIANTE = 'B';
 const PRECIO  = 60000;
 
-/* Link de pago de respaldo. Se usa SOLO si create_payment no contesta a tiempo.
-   ⚠️ PENDIENTE: regenerar con el Access Token de producción de la app nueva
-   "MonotributoListo", con back_urls apuntando a este dominio. Hasta entonces
-   queda vacío a propósito: es preferible mostrar una pantalla de ayuda que
-   mandar a la persona a un checkout que después la devuelve a un dominio
-   muerto. Un pago hecho por el respaldo NO trae external_reference, así que
-   no se ata solo al lead y hay que reconciliarlo a mano. */
-const MP_FALLBACK = '';
+/* Link de pago de respaldo. Se usa SOLO si create_payment no contesta a tiempo
+   (corte a 3,5s) — por ejemplo si Vercel está caído o un deploy quedó trabado.
+   Sin esto, una caída del CRM = nadie puede pagar.
+   Generado 26/8/2026 con el token de producción de la app "MonotributoListo",
+   con back_urls a este dominio y notification_url al CRM.
+   ⚠️ Es estático: su external_reference es "monotributolisto_respaldo", no el
+   teléfono, así que un pago hecho por acá NO se ata solo al lead. El webhook
+   lo detecta igual y lo deja en los logs de Vercel (buscar "MP PAGO NO
+   RECONCILIABLE") con email y nombre del pagador, para cargarlo a mano. */
+const MP_FALLBACK = 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=1413458706-561cd837-42d8-4ba8-a18e-5f7b545f81b6';
 
 /* ─── IDs de medición (dataset propio de esta marca, separado del de
    altamonotributo.com para poder comparar el rendimiento de las dos webs).

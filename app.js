@@ -137,8 +137,19 @@ async function crearLinkPago(){
 }
 
 /* Si ya completó el formulario antes en este navegador, lo retomamos donde
-   estaba en vez de hacerle empezar de cero. */
-try{ if(JSON.parse(localStorage.getItem("ts_completado")||"null")) stage="already"; }catch{}
+   estaba en vez de hacerle empezar de cero.
+   ⚠️ Hay que restaurar también la identidad: si el objeto `lead` queda vacío,
+   create_payment genera la preferencia SIN external_reference válido y el
+   webhook de Mercado Pago no puede reconciliar el pago con nadie. Se pierde
+   sobre todo con los pagos en efectivo, donde el webhook es el único aviso
+   (la persona paga en el kiosco días después, sin volver al sitio). */
+try{
+  if(JSON.parse(localStorage.getItem("ts_completado")||"null")){
+    stage="already";
+    const id=JSON.parse(localStorage.getItem("ts_lead_pago")||"{}");
+    ["telefono","nombre","apellido","email","dni"].forEach(k=>{ if(id[k]) lead[k]=id[k] });
+  }
+}catch{}
 render();
 document.querySelectorAll(".faq-list article button").forEach(btn=>btn.onclick=()=>{const item=btn.closest("article"),was=item.classList.contains("open");document.querySelectorAll(".faq-list article").forEach(x=>{x.classList.remove("open");x.querySelector("b").textContent="+"});if(!was){item.classList.add("open");btn.querySelector("b").textContent="−"}});
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add("visible")),{threshold:.12});document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
